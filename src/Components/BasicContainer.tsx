@@ -13,7 +13,7 @@ const Layout = styled.div`
   padding: 1.25em;
   width: 96vw;
   height: 92vh;
-  background-color: rgba(230, 230, 230, 0.8);
+  background-color: rgba(230, 230, 230, 0.6);
   border-radius: 1rem;
   border-radius: 1em;
 `;
