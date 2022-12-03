@@ -63,21 +63,38 @@ interface FormValues {
 
 const Play = () => {
   const [computerNumbers, setComputerNumbers] = useState<String | null>();
+  const [playerNumbers, setPlayerNumbers] = useState<String | null>();
 
   const { mode } = useParams();
 
-  const { register, setFocus, handleSubmit, setValue } = useForm<FormValues>({
-    mode: 'onChange',
-  });
+  const { register, setFocus, handleSubmit, setValue, getValues } =
+    useForm<FormValues>({
+      mode: 'onChange',
+    });
 
   const onSubmit = () => {
-    console.log('제출!');
     setTimeout(() => {
-      setValue('number1', '');
-      setValue('number2', '');
-      setValue('number3', '');
-      setValue('number4', '');
+      createPlayerNumbers();
+      initializeValues();
     }, 500);
+  };
+
+  const createPlayerNumbers = () => {
+    const numbers =
+      getValues('number1') +
+      getValues('number2') +
+      getValues('number3') +
+      getValues('number4');
+
+    setPlayerNumbers(numbers);
+  };
+
+  const initializeValues = () => {
+    setValue('number1', '');
+    setValue('number2', '');
+    setValue('number3', '');
+    setValue('number4', '');
+    setFocus('number1');
   };
 
   useEffect(() => {
@@ -119,7 +136,7 @@ const Play = () => {
           />
         </Form>
         <ResultContainer>
-          <Numbers>1234</Numbers>
+          <Numbers>{playerNumbers}</Numbers>
           <Result>2볼 2스트라이크</Result>
         </ResultContainer>
       </Layout>
