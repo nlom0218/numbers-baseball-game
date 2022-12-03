@@ -81,7 +81,7 @@ const Home = () => {
             <FcSettings />
           </Setup>
         </TopBtn>
-        <Title>오늘 아침 활동 뭐하지? - 숫자 야구 ⚾️</Title>
+        <Title>아침 활동 뭐하지? - 숫자 야구 ⚾️</Title>
         <ButtonContainer>
           <div onClick={onClickPlaySole}>혼자서 하기</div>
           <div onClick={onClickPlayTeam}>팀전으로 하기</div>

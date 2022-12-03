@@ -63,6 +63,7 @@ const Input = styled.input`
   padding: 1.25rem;
   border-radius: 10px;
   border-radius: 0.625rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   background: #ececec;
   text-align: center;
   border: 2px solid #525252;
@@ -85,8 +86,8 @@ const ErrorMessage = styled.div`
 `;
 
 const Numbers = styled.div`
-  font-size: 6em;
-  font-size: 6rem;
+  font-size: 8em;
+  font-size: 8rem;
   letter-spacing: 20px;
   letter-spacing: 1.25rem;
 `;
