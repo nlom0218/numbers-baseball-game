@@ -7,13 +7,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Name = styled.span`
-  position: absolute;
-  font-family: 'East Sea Dokdo', sans-serif;
-  font-size: 2em;
-  font-size: 2rem;
-`;
-
 const Layout = styled.div`
   margin: 0 auto;
   padding: 1.25rem;
@@ -23,6 +16,14 @@ const Layout = styled.div`
   background-color: rgba(230, 230, 230, 0.6);
   border-radius: 1rem;
   border-radius: 1em;
+  position: relative;
+`;
+
+const Name = styled.span`
+  position: absolute;
+  font-family: 'East Sea Dokdo', sans-serif;
+  font-size: 2em;
+  font-size: 2rem;
 `;
 
 interface IProps {
