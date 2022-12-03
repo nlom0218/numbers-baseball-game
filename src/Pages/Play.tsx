@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import ComputerNumbers from '../libs/ComputerNumbers';
+import ValidationNumbers from '../libs/ValidationNumbers';
 
 const Layout = styled.div`
   height: 100%;
@@ -42,6 +43,12 @@ const ResultContainer = styled.div`
   align-items: center;
 `;
 
+const ErrorMessage = styled.div`
+  font-size: 4em;
+  font-size: 4rem;
+  color: #f83030;
+`;
+
 const Numbers = styled.div`
   font-size: 6em;
   font-size: 6rem;
@@ -64,6 +71,7 @@ interface FormValues {
 const Play = () => {
   const [computerNumbers, setComputerNumbers] = useState<String | null>();
   const [playerNumbers, setPlayerNumbers] = useState<String | null>();
+  const [errMsg, setErrMsg] = useState<String | null>(null);
 
   const { mode } = useParams();
 
@@ -86,6 +94,10 @@ const Play = () => {
       getValues('number3') +
       getValues('number4');
 
+    const { errMsg } = ValidationNumbers(numbers);
+    if (errMsg) return setErrMsg(errMsg);
+
+    setErrMsg(null);
     setPlayerNumbers(numbers);
   };
 
@@ -136,7 +148,11 @@ const Play = () => {
           />
         </Form>
         <ResultContainer>
-          <Numbers>{playerNumbers}</Numbers>
+          {errMsg ? (
+            <ErrorMessage>{errMsg}</ErrorMessage>
+          ) : (
+            <Numbers>{playerNumbers}</Numbers>
+          )}
           <Result>2볼 2스트라이크</Result>
         </ResultContainer>
       </Layout>
