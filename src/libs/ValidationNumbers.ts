@@ -3,7 +3,7 @@ const ValidationNumbers = (numbers: string) => {
 
   if (numbers.includes('0')) return { errMsg: '0은 입력할 수 없습니다.' };
 
-  if ([...new Set([...numbers])].length !== 4)
+  if (new Set(numbers.split('')).size !== 4)
     return { errMsg: '중복된 숫자는 입력할 수 없습니다.' };
 
   return { errMsg: undefined };

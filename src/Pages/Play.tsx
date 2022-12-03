@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import ComputerNumbers from '../libs/ComputerNumbers';
 import ValidationNumbers from '../libs/ValidationNumbers';
+import Compare from '../libs/Compare';
 
 const Layout = styled.div`
   height: 100%;
@@ -69,9 +70,12 @@ interface FormValues {
 }
 
 const Play = () => {
-  const [computerNumbers, setComputerNumbers] = useState<String | null>();
-  const [playerNumbers, setPlayerNumbers] = useState<String | null>();
-  const [errMsg, setErrMsg] = useState<String | null>(null);
+  const [computerNumbers, setComputerNumbers] = useState<string | null>(
+    ComputerNumbers.get()
+  );
+  const [playerNumbers, setPlayerNumbers] = useState<string | null>(null);
+  const [errMsg, setErrMsg] = useState<string | null>(null);
+  const [result, setResult] = useState<string | null>('0볼 0스크라이크');
 
   const { mode } = useParams();
 
@@ -83,6 +87,7 @@ const Play = () => {
   const onSubmit = () => {
     setTimeout(() => {
       createPlayerNumbers();
+      printResult();
       initializeValues();
     }, 500);
   };
@@ -101,6 +106,13 @@ const Play = () => {
     setPlayerNumbers(numbers);
   };
 
+  const printResult = () => {
+    if (!computerNumbers || !playerNumbers) return;
+
+    const result = Compare.result(computerNumbers, playerNumbers);
+    setResult(result);
+  };
+
   const initializeValues = () => {
     setValue('number1', '');
     setValue('number2', '');
@@ -111,8 +123,11 @@ const Play = () => {
 
   useEffect(() => {
     setFocus('number1');
-    setComputerNumbers(ComputerNumbers.get());
   }, []);
+
+  useEffect(() => {
+    printResult();
+  }, [playerNumbers]);
 
   return (
     <BasicContainer>
@@ -153,7 +168,7 @@ const Play = () => {
           ) : (
             <Numbers>{playerNumbers}</Numbers>
           )}
-          <Result>2볼 2스트라이크</Result>
+          <Result>{result}</Result>
         </ResultContainer>
       </Layout>
     </BasicContainer>
