@@ -21,6 +21,11 @@ export const GlobalStyle = createGlobalStyle`
         color: #202020;
     }
 
+    input {
+        all: unset;
+        box-sizing: border-box;
+    }
+
     a {
         text-decoration: none;
         color: #282828;
