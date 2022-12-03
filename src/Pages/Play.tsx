@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import BasicContainer from '../Components/BasicContainer';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import ComputerNumbers from '../libs/ComputerNumbers';
 
 const Layout = styled.div`
   height: 100%;
@@ -61,6 +62,8 @@ interface FormValues {
 }
 
 const Play = () => {
+  const [computerNumbers, setComputerNumbers] = useState<String | null>();
+
   const { mode } = useParams();
 
   const { register, setFocus, handleSubmit, setValue } = useForm<FormValues>({
@@ -79,6 +82,7 @@ const Play = () => {
 
   useEffect(() => {
     setFocus('number1');
+    setComputerNumbers(ComputerNumbers.get());
   }, []);
 
   return (

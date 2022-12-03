@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import ComputerNumbers from '../libs/ComputerNumbers';
 import BasicContainer from '../Components/BasicContainer';
-import { FcRules, FcSettings } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
+import { FcRules, FcSettings } from 'react-icons/fc';
 
 const Layout = styled.div`
   height: 100%;
@@ -71,7 +72,10 @@ const Home = () => {
 
   const onClickSetup = () => navigate('/setup');
 
-  const onClickPlaySole = () => navigate('/play/sole');
+  const onClickPlaySole = () => {
+    ComputerNumbers.save();
+    navigate('/play/sole');
+  };
 
   const onClickPlayTeam = () => navigate('/play/team');
 
