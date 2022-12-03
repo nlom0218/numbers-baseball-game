@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import BasicContainer from '../Components/BasicContainer';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ComputerNumbers from '../libs/ComputerNumbers';
 import ValidationNumbers from '../libs/ValidationNumbers';
 import Compare from '../libs/Compare';
@@ -13,6 +13,29 @@ const Layout = styled.div`
   grid-template-rows: 1fr 2fr;
   justify-items: center;
   align-items: center;
+`;
+
+const GameEnd = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto;
+  column-gap: 20px;
+  column-gap: 1.25rem;
+  align-items: center;
+  .endMessage {
+    font-size: 5em;
+    font-size: 5rem;
+  }
+  .gameEndBtn {
+    background-color: #1c5b8e;
+    color: #e8e8e8;
+    padding: 10px 40px;
+    border-radius: 0.3125em;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    font-size: 1.5em;
+    font-size: 1.5rem;
+    box-shadow: 0px 16px 6px -10px rgba(0, 0, 0, 0.6);
+  }
 `;
 
 const Form = styled.form`
@@ -76,7 +99,9 @@ const Play = () => {
   const [playerNumbers, setPlayerNumbers] = useState<string | null>(null);
   const [errMsg, setErrMsg] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>('0볼 0스크라이크');
+  const [isEnd, setIsEnd] = useState(false);
 
+  const navigate = useNavigate();
   const { mode } = useParams();
 
   const { register, setFocus, handleSubmit, setValue, getValues } =
@@ -111,6 +136,7 @@ const Play = () => {
 
     const result = Compare.result(computerNumbers, playerNumbers);
     setResult(result);
+    setIsEnd(computerNumbers === playerNumbers);
   };
 
   const initializeValues = () => {
@@ -121,9 +147,18 @@ const Play = () => {
     setFocus('number1');
   };
 
+  const onClickHomeBtn = () => navigate('/');
+
+  const onClickReset = () => {
+    setIsEnd(false);
+    ComputerNumbers.save();
+    setPlayerNumbers(null);
+    setComputerNumbers(ComputerNumbers.get());
+  };
+
   useEffect(() => {
     setFocus('number1');
-  }, []);
+  }, [computerNumbers]);
 
   useEffect(() => {
     printResult();
@@ -132,36 +167,48 @@ const Play = () => {
   return (
     <BasicContainer>
       <Layout>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            {...register('number1', {
-              onChange: () => setFocus('number2'),
-            })}
-            type="text"
-            maxLength={1}
-          />
-          <Input
-            {...register('number2', {
-              onChange: () => setFocus('number3'),
-            })}
-            type="text"
-            maxLength={1}
-          />
-          <Input
-            {...register('number3', {
-              onChange: () => setFocus('number4'),
-            })}
-            type="text"
-            maxLength={1}
-          />
-          <Input
-            {...register('number4', {
-              onChange: () => onSubmit(),
-            })}
-            type="text"
-            maxLength={1}
-          />
-        </Form>
+        {isEnd ? (
+          <GameEnd>
+            <div className="endMessage">게임 종료!</div>
+            <div className="gameEndBtn" onClick={onClickHomeBtn}>
+              홈으로 이동하기
+            </div>
+            <div className="gameEndBtn" onClick={onClickReset}>
+              게임 재시작하기
+            </div>
+          </GameEnd>
+        ) : (
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              {...register('number1', {
+                onChange: () => setFocus('number2'),
+              })}
+              type="text"
+              maxLength={1}
+            />
+            <Input
+              {...register('number2', {
+                onChange: () => setFocus('number3'),
+              })}
+              type="text"
+              maxLength={1}
+            />
+            <Input
+              {...register('number3', {
+                onChange: () => setFocus('number4'),
+              })}
+              type="text"
+              maxLength={1}
+            />
+            <Input
+              {...register('number4', {
+                onChange: () => onSubmit(),
+              })}
+              type="text"
+              maxLength={1}
+            />
+          </Form>
+        )}
         <ResultContainer>
           {errMsg ? (
             <ErrorMessage>{errMsg}</ErrorMessage>
