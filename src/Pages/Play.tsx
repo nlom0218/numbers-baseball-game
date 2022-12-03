@@ -21,10 +21,6 @@ const GameEnd = styled.div`
   column-gap: 20px;
   column-gap: 1.25rem;
   align-items: center;
-  .endMessage {
-    font-size: 5em;
-    font-size: 5rem;
-  }
   .gameEndBtn {
     background-color: #1c5b8e;
     color: #e8e8e8;
@@ -32,9 +28,10 @@ const GameEnd = styled.div`
     border-radius: 0.3125em;
     border-radius: 0.3125rem;
     cursor: pointer;
-    font-size: 1.5em;
-    font-size: 1.5rem;
-    box-shadow: 0px 16px 6px -10px rgba(0, 0, 0, 0.6);
+    font-size: 2em;
+    font-size: 2rem;
+    font-family: 'Black And White Picture', sans-serif;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 `;
 
@@ -54,9 +51,10 @@ const Input = styled.input`
   padding: 1.25rem;
   border-radius: 10px;
   border-radius: 0.625rem;
-  background: #f0f0f0;
+  background: #ececec;
   text-align: center;
-  border: 2px solid #444444;
+  border: 2px solid #525252;
+  font-family: 'Song Myung';
 `;
 
 const ResultContainer = styled.div`
@@ -65,6 +63,7 @@ const ResultContainer = styled.div`
   grid-template-rows: 1fr 1fr;
   justify-items: center;
   align-items: center;
+  font-family: 'Song Myung';
 `;
 
 const ErrorMessage = styled.div`
@@ -169,7 +168,6 @@ const Play = () => {
       <Layout>
         {isEnd ? (
           <GameEnd>
-            <div className="endMessage">게임 종료!</div>
             <div className="gameEndBtn" onClick={onClickHomeBtn}>
               홈으로 이동하기
             </div>
@@ -185,6 +183,7 @@ const Play = () => {
               })}
               type="text"
               maxLength={1}
+              autoComplete="off"
             />
             <Input
               {...register('number2', {
@@ -192,6 +191,7 @@ const Play = () => {
               })}
               type="text"
               maxLength={1}
+              autoComplete="off"
             />
             <Input
               {...register('number3', {
@@ -199,6 +199,7 @@ const Play = () => {
               })}
               type="text"
               maxLength={1}
+              autoComplete="off"
             />
             <Input
               {...register('number4', {
@@ -206,6 +207,7 @@ const Play = () => {
               })}
               type="text"
               maxLength={1}
+              autoComplete="off"
             />
           </Form>
         )}

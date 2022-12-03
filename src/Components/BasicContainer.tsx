@@ -7,6 +7,13 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const Name = styled.span`
+  position: absolute;
+  font-family: 'East Sea Dokdo', sans-serif;
+  font-size: 2em;
+  font-size: 2rem;
+`;
+
 const Layout = styled.div`
   margin: 0 auto;
   padding: 1.25rem;
@@ -25,7 +32,10 @@ interface IProps {
 const BasicContainer = ({ children }: IProps) => {
   return (
     <Container>
-      <Layout>{children}</Layout>
+      <Layout>
+        <Name>초코 에듀테크 연구회</Name>
+        {children}
+      </Layout>
     </Container>
   );
 };

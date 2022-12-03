@@ -10,18 +10,8 @@ const Layout = styled.div`
   grid-template-rows: auto 2fr 1fr;
 `;
 
-const TopContents = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto;
-`;
-
-const Name = styled.span`
-  font-family: 'East Sea Dokdo', sans-serif;
-  font-size: 2em;
-  font-size: 2rem;
-`;
-
 const TopBtn = styled.div`
+  justify-self: flex-end;
   display: flex;
   font-size: 2em;
   font-size: 2rem;
@@ -52,8 +42,9 @@ const ButtonContainer = styled.div`
   grid-template-columns: auto auto;
   column-gap: 1.25em;
   column-gap: 1.25rem;
-  font-size: 1.25em;
-  font-size: 1.25rem;
+  font-size: 2em;
+  font-size: 2rem;
+  font-family: 'Black And White Picture', sans-serif;
   div {
     background-color: #1c5b8e;
     color: #e8e8e8;
@@ -61,7 +52,7 @@ const ButtonContainer = styled.div`
     border-radius: 0.3125em;
     border-radius: 0.3125rem;
     cursor: pointer;
-    box-shadow: 0px 16px 6px -10px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 `;
 
@@ -82,17 +73,14 @@ const Home = () => {
   return (
     <BasicContainer>
       <Layout>
-        <TopContents>
-          <Name>초코 에듀테크 연구회</Name>
-          <TopBtn>
-            <GameRule onClick={onClickGameRule}>
-              <FcRules />
-            </GameRule>
-            <Setup onClick={onClickSetup}>
-              <FcSettings />
-            </Setup>
-          </TopBtn>
-        </TopContents>
+        <TopBtn>
+          <GameRule onClick={onClickGameRule}>
+            <FcRules />
+          </GameRule>
+          <Setup onClick={onClickSetup}>
+            <FcSettings />
+          </Setup>
+        </TopBtn>
         <Title>오늘 아침 활동 뭐하지? - 숫자 야구 ⚾️</Title>
         <ButtonContainer>
           <div onClick={onClickPlaySole}>혼자서 하기</div>
