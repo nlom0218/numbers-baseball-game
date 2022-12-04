@@ -14,6 +14,16 @@ const Team = {
 
     return { errMsg: undefined };
   },
+
+  save(data: any) {
+    const teamNames = Object.values(data);
+
+    const teamInfo = teamNames.map((teamName) => {
+      return { teamName, score: 0 };
+    });
+
+    localStorage.setItem('team', JSON.stringify(teamInfo));
+  },
 };
 
 export default Team;
