@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { SetStateAction } from 'react';
+import { Dispatch, useState } from 'react';
 import styled from 'styled-components';
 import SetupTeamCount from './SetupTeamCount';
 import SetupTeamName from './SetupTeamName';
@@ -11,7 +12,11 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const SetupTeam = () => {
+interface IProps {
+  setIsExistTeam: Dispatch<SetStateAction<boolean>>;
+}
+
+const SetupTeam = ({ setIsExistTeam }: IProps) => {
   const [teamCount, setTeamCount] = useState<string | null>(null);
 
   return (
@@ -19,7 +24,7 @@ const SetupTeam = () => {
       {!teamCount ? (
         <SetupTeamCount setTeamCount={setTeamCount} />
       ) : (
-        <SetupTeamName teamCount={teamCount} />
+        <SetupTeamName teamCount={teamCount} setIsExistTeam={setIsExistTeam} />
       )}
     </Container>
   );

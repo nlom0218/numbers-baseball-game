@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
 import BasicContainer from '../Components/BasicContainer';
 import SetupTeam from '../Components/Team/SetupTeam';
+import TeamState from '../Components/Team/TeamState';
 import Team from '../libs/Team';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const Setup = () => {
   const [isExistTeam, setIsExistTeam] = useState(false);
@@ -12,7 +13,11 @@ const Setup = () => {
   }, []);
   return (
     <BasicContainer>
-      {isExistTeam ? <div>팀 없음</div> : <SetupTeam />}
+      {isExistTeam ? (
+        <TeamState setIsExistTeam={setIsExistTeam} />
+      ) : (
+        <SetupTeam setIsExistTeam={setIsExistTeam} />
+      )}
     </BasicContainer>
   );
 };

@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Team from '../../libs/Team';
@@ -44,15 +45,17 @@ const Submit = styled.input`
 
 interface IProps {
   teamCount: string;
+  setIsExistTeam: Dispatch<SetStateAction<boolean>>;
 }
 
-const SetupTeamName = ({ teamCount }: IProps) => {
+const SetupTeamName = ({ teamCount, setIsExistTeam }: IProps) => {
   const { register, handleSubmit } = useForm({
     mode: 'onChange',
   });
 
   const onSubmit = (data: any) => {
     Team.save(data);
+    setIsExistTeam(true);
   };
 
   return (
