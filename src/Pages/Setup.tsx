@@ -4,6 +4,7 @@ import TeamState from '../Components/Team/TeamState';
 import Team from '../libs/Team';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import MoveHome from '../Components/MoveHoem';
 
 const Setup = () => {
   const [isExistTeam, setIsExistTeam] = useState(false);
@@ -13,6 +14,7 @@ const Setup = () => {
   }, []);
   return (
     <BasicContainer>
+      <MoveHome />
       {isExistTeam ? (
         <TeamState setIsExistTeam={setIsExistTeam} />
       ) : (

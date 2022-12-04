@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ComputerNumbers from '../libs/ComputerNumbers';
 import ValidationNumbers from '../libs/ValidationNumbers';
 import Compare from '../libs/Compare';
-import { FcHome } from 'react-icons/fc';
+import MoveHome from '../Components/MoveHoem';
 
 const Layout = styled.div`
   height: 100%;
@@ -14,17 +14,6 @@ const Layout = styled.div`
   grid-template-rows: 1fr 2fr;
   justify-items: center;
   align-items: center;
-`;
-
-const Home = styled.div`
-  position: absolute;
-  font-size: 3em;
-  font-size: 3rem;
-  right: 0;
-  top: 0;
-  padding: 20px;
-  padding: 1.25rem;
-  cursor: pointer;
 `;
 
 const GameEnd = styled.div`
@@ -178,10 +167,8 @@ const Play = () => {
 
   return (
     <BasicContainer>
+      <MoveHome />
       <Layout>
-        <Home onClick={onClickHomeBtn}>
-          <FcHome />
-        </Home>
         {isEnd ? (
           <GameEnd>
             <div className="gameEndBtn" onClick={onClickHomeBtn}>
