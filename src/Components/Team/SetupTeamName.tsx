@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -49,7 +50,7 @@ interface IProps {
 }
 
 const SetupTeamName = ({ teamCount, setIsExistTeam }: IProps) => {
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, setFocus } = useForm({
     mode: 'onChange',
   });
 
@@ -57,6 +58,10 @@ const SetupTeamName = ({ teamCount, setIsExistTeam }: IProps) => {
     Team.save(data);
     setIsExistTeam(true);
   };
+
+  useEffect(() => {
+    setFocus('teamName1');
+  }, []);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -70,6 +75,7 @@ const SetupTeamName = ({ teamCount, setIsExistTeam }: IProps) => {
               placeholder={`${idx + 1}팀 이름을 작성해 주세요.`}
               maxLength={10}
               required
+              autoComplete="off"
             />
           );
         })}
