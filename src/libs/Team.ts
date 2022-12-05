@@ -52,6 +52,18 @@ const Team = {
   getLength() {
     return this.get().length;
   },
+
+  updateScore(teamName: string) {
+    let teams: Array<ITeams> = this.get();
+
+    teams = teams.map((team) => {
+      if (team.teamName === teamName) team.score += 10;
+
+      return team;
+    });
+
+    localStorage.setItem('team', JSON.stringify(teams));
+  },
 };
 
 export default Team;

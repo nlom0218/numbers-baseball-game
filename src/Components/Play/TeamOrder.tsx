@@ -1,6 +1,8 @@
+import { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Team from '../../libs/Team';
+import { ITeams } from '../../Pages/Play';
 import TeamItem from './TeamItem';
 
 const Container = styled.div`
@@ -19,18 +21,13 @@ const Container = styled.div`
   row-gap: 0.625rem;
 `;
 
-interface ITeams {
-  teamName: string;
-  score: number;
-}
-
 interface IProps {
   order: number;
+  teams: Array<ITeams>;
+  setTeams: Dispatch<SetStateAction<ITeams[]>>;
 }
 
-const TeamOrder = ({ order }: IProps) => {
-  const [teams, setTeams] = useState<Array<ITeams>>(Team.get());
-
+const TeamOrder = ({ order, teams, setTeams }: IProps) => {
   useEffect(() => {
     const randomTeam = Team.mixRandom(teams);
     setTeams(randomTeam);

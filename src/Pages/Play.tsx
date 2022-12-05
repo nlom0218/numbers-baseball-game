@@ -96,6 +96,11 @@ interface FormValues {
   number4: string;
 }
 
+export interface ITeams {
+  teamName: string;
+  score: number;
+}
+
 const Play = () => {
   const [computerNumbers, setComputerNumbers] = useState<string | null>(
     ComputerNumbers.get()
@@ -104,6 +109,9 @@ const Play = () => {
   const [errMsg, setErrMsg] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>('0볼 0스크라이크');
   const [isEnd, setIsEnd] = useState(false);
+
+  const [teams, setTeams] = useState<Array<ITeams>>(Team.get());
+  const [seeTeams, setSeeTeams] = useState(true);
   const [order, setOrder] = useState(0);
 
   const navigate = useNavigate();
@@ -119,12 +127,7 @@ const Play = () => {
       createPlayerNumbers();
       printResult();
       initializeValues();
-
-      if (mode !== 'team') return;
-      setOrder((prev) => {
-        if (Team.getLength() - 1 === prev) return 0;
-        return (prev = prev + 1);
-      });
+      if (mode === 'team') updateTeamOrder();
     }, 500);
   };
 
@@ -148,6 +151,21 @@ const Play = () => {
     const result = Compare.result(computerNumbers, playerNumbers);
     setResult(result);
     setIsEnd(computerNumbers === playerNumbers);
+
+    if (computerNumbers === playerNumbers) updateTeamScore();
+  };
+
+  const updateTeamScore = () => {
+    setSeeTeams(false);
+    const idx = order === 0 ? teams.length - 1 : order - 1;
+    Team.updateScore(teams[idx].teamName);
+  };
+
+  const updateTeamOrder = () => {
+    setOrder((prev) => {
+      if (Team.getLength() - 1 === prev) return 0;
+      return ++prev;
+    });
   };
 
   const initializeValues = () => {
@@ -165,6 +183,9 @@ const Play = () => {
     ComputerNumbers.save();
     setPlayerNumbers(null);
     setComputerNumbers(ComputerNumbers.get());
+
+    setSeeTeams(true);
+    setOrder(0);
   };
 
   useEffect(() => {
@@ -232,7 +253,9 @@ const Play = () => {
           )}
           <Result>{result}</Result>
         </ResultContainer>
-        {mode === 'team' && <TeamOrder order={order} />}
+        {mode === 'team' && seeTeams && (
+          <TeamOrder order={order} teams={teams} setTeams={setTeams} />
+        )}
       </Layout>
     </BasicContainer>
   );
