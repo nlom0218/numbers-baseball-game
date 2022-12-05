@@ -3,6 +3,8 @@ import ComputerNumbers from '../libs/ComputerNumbers';
 import BasicContainer from '../Components/BasicContainer';
 import { useNavigate } from 'react-router-dom';
 import { FcRules, FcSettings } from 'react-icons/fc';
+import Team from '../libs/Team';
+import { useState } from 'react';
 
 const Layout = styled.div`
   height: 100%;
@@ -56,7 +58,22 @@ const ButtonContainer = styled.div`
   }
 `;
 
+const ErrMsg = styled.div`
+  font-family: 'Song Myung';
+  position: absolute;
+  font-size: 3em;
+  font-size: 3rem;
+  color: #f83030;
+  bottom: 40px;
+  bottom: 2.5rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+`;
+
 const Home = () => {
+  const [errMsg, setErrMsg] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const onClickGameRule = () => navigate('/rules');
@@ -68,7 +85,12 @@ const Home = () => {
     navigate('/play/sole');
   };
 
-  const onClickPlayTeam = () => navigate('/play/team');
+  const onClickPlayTeam = () => {
+    if (!Team.isExist()) return setErrMsg('팀 설정 후 입장 가능합니다.');
+
+    ComputerNumbers.save();
+    navigate('/play/team');
+  };
 
   return (
     <BasicContainer>
@@ -86,6 +108,7 @@ const Home = () => {
           <div onClick={onClickPlaySole}>혼자서 하기</div>
           <div onClick={onClickPlayTeam}>팀전으로 하기</div>
         </ButtonContainer>
+        {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
       </Layout>
     </BasicContainer>
   );
