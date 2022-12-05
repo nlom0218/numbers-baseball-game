@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const Title = styled.div`
   grid-column: 1 / -1;
-  justify-self: flex-end;
+  justify-self: flex-start;
   font-size: 2em;
   font-size: 2rem;
 `;

@@ -41,7 +41,7 @@ const ButtonContainer = styled.div`
   align-items: flex-start;
   justify-self: center;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   column-gap: 1.25em;
   column-gap: 1.25rem;
   font-size: 2em;
@@ -95,18 +95,12 @@ const Home = () => {
   return (
     <BasicContainer>
       <Layout>
-        <TopBtn>
-          <GameRule onClick={onClickGameRule}>
-            <FcRules />
-          </GameRule>
-          <Setup onClick={onClickSetup}>
-            <FcSettings />
-          </Setup>
-        </TopBtn>
+        <TopBtn></TopBtn>
         <Title>아침 활동 뭐하지? - 숫자 야구 ⚾️</Title>
         <ButtonContainer>
           <div onClick={onClickPlaySole}>혼자서 하기</div>
           <div onClick={onClickPlayTeam}>팀전으로 하기</div>
+          <div onClick={onClickSetup}>팀 설정하기</div>
         </ButtonContainer>
         {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
       </Layout>
