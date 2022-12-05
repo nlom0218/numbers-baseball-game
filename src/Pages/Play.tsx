@@ -21,7 +21,7 @@ const Layout = styled.div`
 
 const GameEnd = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto;
   column-gap: 20px;
   column-gap: 1.25rem;
   align-items: center;
@@ -37,6 +37,16 @@ const GameEnd = styled.div`
     font-family: 'Black And White Picture', sans-serif;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
+`;
+
+const SuccessMsg = styled.div`
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin-top: 40px;
+  margin-top: 2.5rem;
+  font-family: 'Song Myung';
+  font-size: 3em;
+  font-size: 3rem;
 `;
 
 const Form = styled.form`
@@ -113,6 +123,7 @@ const Play = () => {
   const [teams, setTeams] = useState<Array<ITeams>>(Team.get());
   const [seeTeams, setSeeTeams] = useState(true);
   const [order, setOrder] = useState(0);
+  const [successMsg, setSuccessMsg] = useState<string | null>();
 
   const navigate = useNavigate();
   const { mode } = useParams();
@@ -159,6 +170,7 @@ const Play = () => {
     setSeeTeams(false);
     const idx = order === 0 ? teams.length - 1 : order - 1;
     Team.updateScore(teams[idx].teamName);
+    setSuccessMsg(`${teams[idx].teamName}의 승리🔥`);
   };
 
   const updateTeamOrder = () => {
@@ -186,6 +198,7 @@ const Play = () => {
 
     setSeeTeams(true);
     setOrder(0);
+    setSuccessMsg(null);
   };
 
   useEffect(() => {
@@ -208,6 +221,7 @@ const Play = () => {
             <div className="gameEndBtn" onClick={onClickReset}>
               게임 재시작하기
             </div>
+            {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
           </GameEnd>
         ) : (
           <Form onSubmit={handleSubmit(onSubmit)}>
