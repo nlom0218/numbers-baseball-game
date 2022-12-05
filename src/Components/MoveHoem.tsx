@@ -11,6 +11,7 @@ const Home = styled.div`
   padding: 20px;
   padding: 1.25rem;
   cursor: pointer;
+  z-index: 10;
 `;
 
 const MoveHome = () => {

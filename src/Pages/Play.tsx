@@ -7,6 +7,7 @@ import ComputerNumbers from '../libs/ComputerNumbers';
 import ValidationNumbers from '../libs/ValidationNumbers';
 import Compare from '../libs/Compare';
 import MoveHome from '../Components/MoveHoem';
+import TeamOrder from '../Components/Play/TeamOrder';
 
 const Layout = styled.div`
   height: 100%;
@@ -14,6 +15,7 @@ const Layout = styled.div`
   grid-template-rows: 1fr 2fr;
   justify-items: center;
   align-items: center;
+  position: relative;
 `;
 
 const GameEnd = styled.div`
@@ -222,6 +224,7 @@ const Play = () => {
           )}
           <Result>{result}</Result>
         </ResultContainer>
+        {mode === 'team' && <TeamOrder />}
       </Layout>
     </BasicContainer>
   );
