@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
@@ -62,7 +63,7 @@ interface IProps {
 const SetupTeamCount = ({ setTeamCount }: IProps) => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const { register, handleSubmit, setValue } = useForm<IForm>({
+  const { register, handleSubmit, setValue, setFocus } = useForm<IForm>({
     mode: 'onChange',
   });
 
@@ -78,6 +79,10 @@ const SetupTeamCount = ({ setTeamCount }: IProps) => {
 
     setTeamCount(teamCount);
   };
+
+  useEffect(() => {
+    setFocus('teamCount');
+  }, []);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>

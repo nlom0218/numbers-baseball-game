@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
@@ -44,17 +45,34 @@ const Submit = styled.input`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 `;
 
+const ErrMsg = styled.div`
+  font-size: 3em;
+  font-size: 3rem;
+  color: #f83030;
+`;
+
 interface IProps {
   teamCount: string;
   setIsExistTeam: Dispatch<SetStateAction<boolean>>;
 }
 
 const SetupTeamName = ({ teamCount, setIsExistTeam }: IProps) => {
+  const [errMsg, setErrMsg] = useState<string | null>();
   const { register, handleSubmit, setFocus } = useForm({
     mode: 'onChange',
   });
 
   const onSubmit = (data: any) => {
+    const teamNames = Object.values(data);
+
+    const teamSet = new Set();
+    teamNames.forEach((teamName) => {
+      teamSet.add(teamName);
+    });
+
+    if (teamSet.size !== Number(teamCount))
+      return setErrMsg('팀 이름이 중복되었습니다.');
+
     Team.save(data);
     setIsExistTeam(true);
   };
@@ -81,6 +99,7 @@ const SetupTeamName = ({ teamCount, setIsExistTeam }: IProps) => {
         })}
       </InputContainer>
       <Submit type="submit" value="생성하기" />
+      {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
     </Form>
   );
 };
