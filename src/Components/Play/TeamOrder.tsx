@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Team from '../../libs/Team';
 import TeamItem from './TeamItem';
@@ -24,7 +25,13 @@ interface ITeams {
 }
 
 const TeamOrder = () => {
-  const teams: Array<ITeams> = Team.get();
+  const [teams, setTeams] = useState<Array<ITeams>>(Team.get());
+
+  useEffect(() => {
+    const randomTeam = Team.mixRandom(teams);
+    setTeams(randomTeam);
+  }, []);
+
   return (
     <Container>
       {teams.map(({ teamName }, idx) => {

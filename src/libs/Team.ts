@@ -1,3 +1,8 @@
+interface ITeams {
+  teamName: string;
+  score: number;
+}
+
 const Team = {
   isExist() {
     return Boolean(localStorage.getItem('team'));
@@ -31,6 +36,17 @@ const Team = {
 
   reset() {
     localStorage.removeItem('team');
+  },
+
+  mixRandom(teams: Array<ITeams>) {
+    const newTeams = [];
+    while (teams.length > 0) {
+      const number = Math.floor(Math.random() * teams.length);
+      newTeams.push(teams[number]);
+      teams = teams.filter((_, idx) => idx !== number);
+    }
+
+    return newTeams;
   },
 };
 
