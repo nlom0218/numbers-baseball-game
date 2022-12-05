@@ -24,7 +24,11 @@ interface ITeams {
   score: number;
 }
 
-const TeamOrder = () => {
+interface IProps {
+  order: number;
+}
+
+const TeamOrder = ({ order }: IProps) => {
   const [teams, setTeams] = useState<Array<ITeams>>(Team.get());
 
   useEffect(() => {
@@ -35,7 +39,7 @@ const TeamOrder = () => {
   return (
     <Container>
       {teams.map(({ teamName }, idx) => {
-        return <TeamItem key={idx} teamName={teamName} />;
+        return <TeamItem key={idx} teamName={teamName} turn={order === idx} />;
       })}
     </Container>
   );

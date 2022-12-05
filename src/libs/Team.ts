@@ -48,6 +48,10 @@ const Team = {
 
     return newTeams;
   },
+
+  getLength() {
+    return this.get().length;
+  },
 };
 
 export default Team;

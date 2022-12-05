@@ -8,6 +8,7 @@ import ValidationNumbers from '../libs/ValidationNumbers';
 import Compare from '../libs/Compare';
 import MoveHome from '../Components/MoveHoem';
 import TeamOrder from '../Components/Play/TeamOrder';
+import Team from '../libs/Team';
 
 const Layout = styled.div`
   height: 100%;
@@ -103,6 +104,7 @@ const Play = () => {
   const [errMsg, setErrMsg] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>('0볼 0스크라이크');
   const [isEnd, setIsEnd] = useState(false);
+  const [order, setOrder] = useState(0);
 
   const navigate = useNavigate();
   const { mode } = useParams();
@@ -117,6 +119,12 @@ const Play = () => {
       createPlayerNumbers();
       printResult();
       initializeValues();
+
+      if (mode !== 'team') return;
+      setOrder((prev) => {
+        if (Team.getLength() - 1 === prev) return 0;
+        return (prev = prev + 1);
+      });
     }, 500);
   };
 
@@ -224,7 +232,7 @@ const Play = () => {
           )}
           <Result>{result}</Result>
         </ResultContainer>
-        {mode === 'team' && <TeamOrder />}
+        {mode === 'team' && <TeamOrder order={order} />}
       </Layout>
     </BasicContainer>
   );
